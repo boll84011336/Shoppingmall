@@ -541,9 +541,9 @@
                 <p>${item.product.title}</p>
               </div>
             </td>
-            <td>${item.product.price}</td>
+            <td>${toThousand(item.product.price)}</td>
             <td>${item.quantity}</td>
-            <td>${item.product.price * item.quantity}</td>
+            <td>${toThousand(item.product.price * item.quantity)}</td>
             <td class="discardBtn">
               <a href="#" class="material-icons" 
               data-deleteid="${item.id}" 
