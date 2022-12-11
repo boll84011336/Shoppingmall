@@ -313,6 +313,7 @@
           <del class="originPrice">NT$18,000</del>
           <p class="nowPrice">NT$12,000</p>
         </li>
+        <!-- 產品列表結束 -->
       </ul>
     </section>
     <section class="shoppingCart">
@@ -448,7 +449,7 @@
       //cartAPI
       let cartUrl = `https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}`;
 
-      //拿產品資料
+      //取得產品資料
       function getProductList() {
         axios
           .get(dataUrl)
@@ -462,7 +463,7 @@
           });
       }
 
-      //下拉
+      //篩選產品
       productSelect.addEventListener("change", function (e) {
         const selectCategory = e.target.value;
         if (selectCategory === "全部") {
@@ -472,7 +473,6 @@
 
         let str = "";
         productData.forEach((item) => {
-          //跑每一個item比對 如果下拉的類別 等於當下item類別 就顯示不符合就換下一個item
           if (item.category == selectCategory) {
             str += `<li class="productCard">
               <h4 class="productType">新品</h4>
@@ -508,7 +508,7 @@
             src="${item.images}"
             alt=""
           />
-          <a class="addCardBtn" data-id="${item.id}" onclick="addShoppingCart()">加入購物車</a>
+          <a href="#" class="addCardBtn" data-id="${item.id}" onclick="addShoppingCart()">加入購物車</a>
           <h3>${item.title}</h3>
           <del class="originPrice">${item.origin_price}</del>
           <p class="nowPrice">${item.price}</p>
@@ -517,7 +517,7 @@
         productList.innerHTML = str; //把原本HTML的東西替換掉，所以上面HTML的Card那一筆資料才會沒顯示，因為這邊換掉了
       }
 
-      //購物車資料
+      //取得購物車資料
       function getCartList() {
         axios
           .get(`${cartUrl}/carts`)
@@ -593,8 +593,10 @@
         e.preventDefault();
         let deleteId = e.target.getAttribute("data-deleteid"); //deleteId拿值
 
+        if(deleteId == null) return
+        
         axios.delete(`${cartUrl}/carts/${deleteId}`).then((res) => {
-          alert("刪除成功");
+          alert("此品項刪除成功");
           getCartList(); //重拿購物車資料出來
         });
       });
@@ -626,9 +628,7 @@
           });
       }
 
-      //送出訂單Form部分       
-      const orderForm = document.querySelector(".orderInfo-form").value;
-
+      //送出訂單Form部分
       const orderInfoBtn = document.querySelector(".orderInfo-btn");
 
       // 點擊按鈕送出訂單
