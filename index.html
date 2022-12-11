@@ -481,8 +481,8 @@
               />
               <a href="#" class="addCardBtn" data-id="${item.id}" >加入購物車</a>
               <h3>${item.title}</h3>
-              <del class="originPrice">${item.origin_price}</del>
-              <p class="nowPrice">${item.price}</p>
+              <del class="originPrice">${toThousand(item.origin_price)}</del>
+              <p class="nowPrice">${toThousand(item.price)}</p>
             </li>`;
           }
         });
@@ -509,8 +509,8 @@
           />
           <a href="#" class="addCardBtn" data-id="${item.id}" >加入購物車</a>
           <h3>${item.title}</h3>
-          <del class="originPrice">${item.origin_price}</del>
-          <p class="nowPrice">${item.price}</p>
+          <del class="originPrice">${toThousand(item.origin_price)}</del>
+          <p class="nowPrice">${toThousand(item.price)}</p>
         </li>`;
         });
         productList.innerHTML = str; //把原本HTML的東西替換掉，所以上面HTML的Card那一筆資料才會沒顯示，因為這邊換掉了
@@ -521,8 +521,7 @@
         axios
           .get(`${cartUrl}/carts`)
           .then((res) => {
-            document.querySelector(".totalMoney").textContent =
-              res.data.finalTotal;
+            document.querySelector(".totalMoney").textContent = toThousand(res.data.finalTotal);
             cartData = res.data.carts;
             reloadCart(cartData); //第一次進到畫面時先渲染一次資料data
           })
@@ -653,6 +652,13 @@
           getCartList();
         })
       });
+
+      //util.js
+      //將價格改為千分位表示
+      function toThousand(num){
+        const numStr = num.toString();
+        return numStr.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+      }
     </script>
 
     <!-- 預設 JS，請同學不要修改此處 -->
