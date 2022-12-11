@@ -455,7 +455,6 @@
           .get(dataUrl)
           .then((res) => {
             productData = res.data.products;
-            console.log("有productData嗎?", productData);
             reloadProductList(); //第一次進到畫面時先渲染一次資料data
           })
           .catch(function (error) {
@@ -526,7 +525,6 @@
               res.data.finalTotal;
             cartData = res.data.carts;
             reloadCart(cartData); //第一次進到畫面時先渲染一次資料data
-            console.log("購物車資料", cartData);
           })
           .catch(function (error) {
             alert(error.message);
