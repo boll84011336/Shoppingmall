@@ -348,7 +348,7 @@
           <tfoot>
             <tr>
               <td>
-                <a href="#" class="discardAllBtn" onclick="deleteAll()"
+                <a href="#" class="discardAllBtn"
                   >刪除所有品項</a
                 >
               </td>
@@ -585,10 +585,10 @@
         });
       
 
-      //delete one cart
-      cartList.addEventListener("click", (e) => {
+      //刪除單筆購物車資料 delete one cart
+      cartList.addEventListener("click", ((e) => {
         e.preventDefault();
-        let deleteId = e.target.getAttribute("data-deleteid"); //deleteId拿值
+        const deleteId = e.target.getAttribute("data-deleteid"); //deleteId拿值
 
         if(deleteId == null) return
 
@@ -596,34 +596,21 @@
           alert("此品項刪除成功");
           getCartList(); //重拿購物車資料出來
         });
-      });
+      }));
 
-      //delete All
-      // const discardAllBtn = document.querySelector(".discardAllBtn");
-      // discardAllBtn.addEventListener("click",e => {
-      //     e.preventDefault();
-      //     axios.delete(`${cartUrl}/carts`)
-      //     .then(res => {
-      //       alert("刪除成功");
-      //       getCartList();//重拿購物車資料出來
-      //     })
-      //     .catch(err => {
-      //       alert("購物車已清空，請勿重複點擊")
-      //     })
-      // })
-
-      //ALL
-      function deleteAll() {
-        axios
-          .delete(`${cartUrl}/carts`)
-          .then((res) => {
+      //刪除全部購物車資料 delete All
+      const discardAllBtn = document.querySelector(".discardAllBtn");
+      discardAllBtn.addEventListener("click",((e) => {
+          e.preventDefault();
+          axios.delete(`${cartUrl}/carts`)
+          .then(res => {
             alert("刪除成功");
-            getCartList(); //重拿購物車資料出來
+            getCartList();//重拿購物車資料出來
           })
-          .catch((err) => {
-            alert("購物車已清空，請勿重複點擊");
-          });
-      }
+          .catch(err => {
+            alert("購物車已清空，請勿重複點擊")
+          })
+      }));
 
       //送出訂單Form部分
       const orderInfoBtn = document.querySelector(".orderInfo-btn");
